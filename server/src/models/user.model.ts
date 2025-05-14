@@ -16,9 +16,9 @@ type userSchemaType = {
   isVerified: boolean;
 };
 const userSchema = new Schema<userSchemaType>({
-  email: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  address: { type: String },
+  address: { type: String, default: "" },
   isVerified: { type: Boolean, default: false },
   phoneNumber: { type: String },
   orderedFoods: [
