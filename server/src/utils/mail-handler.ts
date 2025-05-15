@@ -21,7 +21,9 @@ export const sendVerificationLink = async (baseURL: string, email: string) => {
     html: `
     <div>
         <h1>User Verification Link</h1>
-        <p>This verification link is valid for 1 hours</p>
-    </div>`,
+        <p style="color:red">This verification link is valid for 1 hours</p>
+        <a href="${baseURL}" target="_blank">Verify</a>
+    </div>
+    `,
   });
 };
