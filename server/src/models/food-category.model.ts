@@ -1,5 +1,13 @@
 import { Schema, model, Model, models } from "mongoose";
 
+export type FoodCategoryModelType = {
+  _id: Schema.Types.ObjectId;
+  categoryName: string;
+
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 type FoodCategorySchemaType = {
   categoryName: string;
 };
@@ -13,5 +21,5 @@ const FoodCategorySchema = new Schema<FoodCategorySchemaType>(
   }
 );
 
-export const FoodModel: Model<FoodCategorySchemaType> =
+export const FoodCategoryModel: Model<FoodCategorySchemaType> =
   models.FoodCategory || model("FoodCategory", FoodCategorySchema);
