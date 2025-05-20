@@ -1,15 +1,20 @@
 import { Request, Response } from "express";
 import { FoodCategoryModel } from "../../models";
 
+type FoodCategoryRequestBody = {
+  categoryName: string;
+};
 export const createFoodCategory = async (req: Request, res: Response) => {
   try {
-    const foodCategoryData = req.body;
+    const categoryName = req.body as FoodCategoryRequestBody;
+    const newFoodCategory = await FoodCategoryModel.create(categoryName);
 
-    const newFoodCategory = await FoodCategoryModel.create(foodCategoryData);
+    console.log("newFoodCategory", newFoodCategory);
 
     res
       .status(201)
       .json({ message: "Food category created succesfully", newFoodCategory });
+    return;
   } catch (error) {
     console.error("Error creating food category", error);
 
