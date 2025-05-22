@@ -1,26 +1,20 @@
 import { Schema, model, Model, models } from "mongoose";
 
-type FoodItem = {
-  quantity: number;
-  food: Schema.Types.ObjectId;
-};
-type FoodSchemaType = {
-  foodName: String;
-  price: Number;
-  image: String;
-  ingrediens: String;
+type FoodModelType = {
+  _id: Schema.Types.ObjectId;
+  foodName: string;
+
+  price: number;
+  image: string;
+  ingrediens: string;
+
   category: Schema.Types.ObjectId;
+
+  createdAt: Date;
+  updatedAt: Date;
 };
 
-const FoodItemSchema = new Schema<FoodItem>(
-  {
-    quantity: { type: Number, required: true },
-    food: { type: Schema.Types.ObjectId, required: true },
-  },
-  { _id: false }
-);
-
-const FoodSchema = new Schema<FoodSchemaType>(
+const FoodSchema = new Schema<FoodModelType>(
   {
     foodName: { type: String, required: true },
     price: { type: Number, required: true },
@@ -31,4 +25,5 @@ const FoodSchema = new Schema<FoodSchemaType>(
   { timestamps: true }
 );
 
-export const Food = models.Food || model("Food", FoodSchema);
+export const FoodModel: Model<FoodModelType> =
+  models["Foods"] || model<FoodModelType>("Foods", FoodSchema);
