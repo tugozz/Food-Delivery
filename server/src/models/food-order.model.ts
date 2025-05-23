@@ -28,7 +28,7 @@ const FoodOrderedItemSchema = new Schema<FoodOrderModelItemType>(
 
 const FoodOrderSchema = new Schema<FoodOrderModelType>(
   {
-    user: { type: Schema.Types.ObjectId, ref: "Users", required: true },
+    user: { type: Schema.Types.ObjectId, ref: "User", required: true },
 
     totalPrice: { type: Number, required: true },
 

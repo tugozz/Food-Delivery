@@ -4,7 +4,7 @@ import { generateNewToken, encryptHash, decryptHash } from "../../utils";
 
 export const signIn = async (req: Request, res: Response) => {
   try {
-    const { password, email } = req.body;
+    const { email, password } = req.body;
 
     const user = await UserModel.findOne({ email }).select("+password");
 
