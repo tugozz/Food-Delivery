@@ -1,10 +1,12 @@
-import Image from "next/image";
+import { HeaderComponents } from "./components/HeaderComponents";
+import { MainComponents } from "./components/MainComponents";
 
 export default function Home() {
   return (
     <div>
       <div>
-        <Image src=""></Image>
+        <HeaderComponents />
+        <MainComponents />
       </div>
     </div>
   );

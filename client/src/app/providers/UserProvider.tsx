@@ -18,7 +18,7 @@ type User = {
 
 type UserContextType = {
   user: User;
-  userLoginHandler: () => void;
+  userLoginHandler: (email: string, password: string) => Promise<void>;
   setUser: Dispatch<SetStateAction<User>>;
 };
 
@@ -27,31 +27,27 @@ const UserContext = createContext<UserContextType>({} as UserContextType);
 export const UserContextProvider = ({ children }: PropsWithChildren) => {
   const [user, setUser] = useState<User>({ email: "", password: "" });
 
-  const userLoginHandler = async () => {
-    try {
-      await axios.post("local/login", {});
-    } catch (error) {
-      console.error("Login error:", error);
+  const userLoginHandler = async (email: string, password: string) => {
+    const res = await axios.post("/auth/sign-in", { email, password });
+    if (res.data.token) {
+      localStorage.setItem("token", res.data.token);
+      setUser({ email, password });
     }
   };
 
   useEffect(() => {
-    const refreshTokenIfNeeded = async () => {
+    const checkToken = async () => {
       const token = localStorage.getItem("token");
-
       if (token) {
-        try {
-          const response = await axios.get("adfadfadf", {
-            headers: { Authorization: token },
-          });
-          localStorage.setItem("token", response.data.token);
-        } catch (error) {
-          console.error("Token refresh failed:", error);
+        const res = await axios.get("/auth/refresh-user", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (res.data.token) {
+          localStorage.setItem("token", res.data.token);
         }
       }
     };
-
-    refreshTokenIfNeeded();
+    checkToken();
   }, []);
 
   return (
