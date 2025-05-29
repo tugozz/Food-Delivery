@@ -9,6 +9,10 @@ export const HeaderComponents = () => {
   const handleSignup = () => {
     router.push("/signup");
   };
+
+  const handleSignIn = () => {
+    router.push("/login");
+  };
   return (
     <div className="w-full h-[172px] bg-black">
       <div className="flex pl-[88px] pt-16 gap-3">
@@ -20,7 +24,9 @@ export const HeaderComponents = () => {
         </div>
 
         <div className="flex">
-          <button className="bg-white">Sign in</button>
+          <button className="bg-white" onClick={handleSignIn}>
+            Sign in
+          </button>
           <button className="bg-red-600" onClick={handleSignup}>
             Sign up
           </button>
