@@ -6,10 +6,13 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 
-const SignUpPage = () => {
+const PasswordPage = () => {
   const router = useRouter();
-  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
 
   const handleMain = () => {
     router.push("/");
@@ -18,29 +21,37 @@ const SignUpPage = () => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    if (!email.trim() || !/\S+@\S+\.\S+/.test(email)) {
+    const strongPasswordRegex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+
+    if (!password || !confirmPassword) {
+      setError("Please enter your password.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError("Those passwords didn’t match, try again.");
+      return;
+    }
+
+    if (!strongPasswordRegex.test(password)) {
       setError(
-        "Мэйл хаягаа Invalid email. Use a format like example@email.com оруулна уу."
+        "Password must be at least 6 characters and include a letter, number, and symbol."
       );
       return;
     }
 
     setError(null);
-
-    // ✅ Navigate to /create-password
-    router.push("/create-password");
+    // Continue to next step
+    router.push("/login"); // Replace with your actual next step
   };
 
   return (
     <div className="flex h-screen">
       <div className="flex flex-col justify-center gap-4 w-1/2 px-[100px]">
-        <ChevronLeft
-          onClick={handleMain}
-          className="cursor-pointer hover:opacity-80"
-        />
-        <h1 className="text-2xl font-bold">Create your account</h1>
+        <h1 className="text-2xl font-bold">Reset your password </h1>
         <p className="text-gray-600">
-          Sign up to explore your favorite dishes.
+          Enter your email to receive a password reset link.
         </p>
         <form onSubmit={handleSubmit}>
           <Input
@@ -51,7 +62,9 @@ const SignUpPage = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+
           {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+
           <button
             type="submit"
             className="bg-black text-white py-3 rounded-xl mt-2 w-full"
@@ -60,9 +73,9 @@ const SignUpPage = () => {
           </button>
         </form>
         <div className="flex gap-3">
-          <p className="text-gray-600">Already have an account?</p>
-          <a className="text-blue-500" href="/login">
-            Log in
+          <p className="text-gray-600">Don’t have an account?</p>
+          <a className="text-blue-500" href="/signup">
+            Sign up
           </a>
         </div>
       </div>
@@ -82,4 +95,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default PasswordPage;

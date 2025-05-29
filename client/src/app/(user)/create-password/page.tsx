@@ -1,44 +1,3 @@
-// "use client";
-
-// import { ChangeEvent, useState } from "react";
-
-// const LoginPage = () => {
-//   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
-//   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-//     const file = Array.from(event.target.files as FileList)[0];
-
-//     setSelectedFile(file);
-//   };
-
-//   const handleSubmit = async () => {
-//     const form = new FormData();
-
-//     if (!selectedFile) return;
-
-//     form.append("upload_preset", "Food Delivery");
-//     form.append("upload", selectedFile);
-//     // form.append("folder", food - imagess);
-
-//     const response = await fetch(
-//       "https://api.cloudinary.com/v1_1/tugozz/image/upload",
-//       { method: "POST", body: "adfa" }
-//     );
-
-//     const parsed = await response.json();
-//     console.log(parsed.url);
-//   };
-
-//   return (
-//     <div className="bg-red-50 w-20 h-20">
-//       <input type="file" onChange={handleFileChange} />
-//       <button onClick={handleSubmit}>Submit</button>
-//     </div>
-//   );
-// };
-
-// export default LoginPage;
-
 "use client";
 
 import { useState } from "react";
@@ -47,7 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 
-const SignInPage = () => {
+const PasswordPage = () => {
   const router = useRouter();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -93,13 +52,16 @@ const SignInPage = () => {
           onClick={handleMain}
           className="cursor-pointer hover:opacity-80"
         />
-        <h1 className="text-2xl font-bold">Log in</h1>
-        <p className="text-gray-600">Log in to enjoy your favorite dishes.</p>
+        <h1 className="text-2xl font-bold">Create a strong password</h1>
+        <p className="text-gray-600">
+          Your password must be at least 6 characters, with a letter, number,
+          and symbol.
+        </p>
         <form onSubmit={handleSubmit}>
           <Input
             name="password"
             type={showPassword ? "text" : "password"}
-            placeholder="Enter your email address"
+            placeholder="Password"
             className="w-full h-10 text-base px-4 py-3"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -107,16 +69,24 @@ const SignInPage = () => {
           <Input
             name="confirmPassword"
             type={showPassword ? "text" : "password"}
-            placeholder="Password"
+            placeholder="Confirm Password"
             className="w-full h-10 text-base px-4 py-3 mt-2"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
           {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
 
-          <a className="text-sm underline" href="/forgot-password">
-            Forgot password ?
-          </a>
+          <div className="flex items-center gap-2 mt-2">
+            <input
+              type="checkbox"
+              id="showPassword"
+              checked={showPassword}
+              onChange={() => setShowPassword(!showPassword)}
+            />
+            <label htmlFor="showPassword" className="text-sm">
+              Show password
+            </label>
+          </div>
 
           <button
             type="submit"
@@ -126,9 +96,9 @@ const SignInPage = () => {
           </button>
         </form>
         <div className="flex gap-3">
-          <p className="text-gray-600">Don’t have an account?</p>
-          <a className="text-blue-500" href="signup">
-            Sign up
+          <p className="text-gray-600">Already have an account?</p>
+          <a className="text-blue-500" href="login">
+            Log in
           </a>
         </div>
       </div>
@@ -148,4 +118,4 @@ const SignInPage = () => {
   );
 };
 
-export default SignInPage;
+export default PasswordPage;
