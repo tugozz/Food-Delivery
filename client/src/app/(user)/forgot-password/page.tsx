@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 
-const PasswordPage = () => {
+const ForgotPasswordPage = () => {
   const router = useRouter();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -49,6 +49,10 @@ const PasswordPage = () => {
   return (
     <div className="flex h-screen">
       <div className="flex flex-col justify-center gap-4 w-1/2 px-[100px]">
+        <ChevronLeft
+          onClick={handleMain}
+          className="cursor-pointer hover:opacity-80"
+        />
         <h1 className="text-2xl font-bold">Reset your password </h1>
         <p className="text-gray-600">
           Enter your email to receive a password reset link.
@@ -95,4 +99,4 @@ const PasswordPage = () => {
   );
 };
 
-export default PasswordPage;
+export default ForgotPasswordPage;

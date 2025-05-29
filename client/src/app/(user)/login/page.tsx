@@ -97,8 +97,8 @@ const SignInPage = () => {
         <p className="text-gray-600">Log in to enjoy your favorite dishes.</p>
         <form onSubmit={handleSubmit}>
           <Input
-            name="password"
-            type={showPassword ? "text" : "password"}
+            name="email"
+            type="text"
             placeholder="Enter your email address"
             className="w-full h-10 text-base px-4 py-3"
             value={password}

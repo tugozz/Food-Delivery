@@ -1,36 +1,40 @@
 "use client";
-
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
 export const HeaderComponents = () => {
-  const router = useRouter();
-
-  const handleSignup = () => {
-    router.push("/signup");
-  };
-
-  const handleSignIn = () => {
-    router.push("/login");
-  };
+  const { push } = useRouter();
   return (
-    <div className="w-full h-[172px] bg-black">
-      <div className="flex pl-[88px] pt-16 gap-3">
-        <Image src="./icon.svg" height={46} width={37} alt="icon"></Image>
-        <div className="font-medium, flex ">
-          <h1 className="text-white">Nom</h1>
-          <h1 className="text-[#EF4444]">Nom</h1>
-          <h1 className="flex text-white">Swift delivery</h1>
+    <div className="bg-black px-[88px] py-4 flex justify-between">
+      <div className="flex gap-3 cursor-pointer">
+        <Image
+          src="./Icon.svg"
+          alt="Logo"
+          width={46}
+          height={38}
+          onClick={() => push("/")}
+        />
+        <div>
+          <p className="text-white">
+            Nom <span className="text-[#EF4444]">Nom</span>
+          </p>
+          <p className="text-white">Swift Delivery</p>
         </div>
-
-        <div className="flex">
-          <button className="bg-white" onClick={handleSignIn}>
-            Sign in
-          </button>
-          <button className="bg-red-600" onClick={handleSignup}>
-            Sign up
-          </button>
-        </div>
+      </div>
+      <div className="flex gap-3">
+        <Button
+          className="flex rounded-full text-[14px] font-medium px-3 py-2 bg-white text-black"
+          onClick={() => push("/signup")}
+        >
+          Sign Up
+        </Button>
+        <Button
+          className="flex rounded-full text-[14px] font-medium px-3 py-2 bg-red-500"
+          onClick={() => push("/login")}
+        >
+          Log In
+        </Button>
       </div>
     </div>
   );
