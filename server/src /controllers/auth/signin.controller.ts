@@ -9,15 +9,13 @@ export const signInController = async (req: Request, res: Response) => {
 
   const existingUser = await UserModel.findOne({ email });
   if (!existingUser) {
-    res.status(400).send({ message: "Iim emailtai burtgel baihgu bn" });
+    res.status(400).send({ message: " emailtai burtgel baihgu bn" });
     return;
   }
 
   const passwordIsMatch = decryptHash(password, existingUser.password);
   if (!passwordIsMatch) {
-    res
-      .status(400)
-      .send({ message: "Iim email passwordtoi burtgel baihgu bn" });
+    res.status(400).send({ message: " email passwordtoi burtgel baihgu bn" });
     return;
   }
 
